@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+	<title>JS Idle/incremental game</title>
+
+	  
+<script type="text/javascript"
+src="https://onedrive.live.com/download?cid=59FFD11D94CC7601&resid=59FFD11D94CC7601%21129&authkey=AF_Z5XyScYfYtX4"></script>
+<script src="https://code.createjs.com/easeljs-0.8.2.min.js"></script>
+<style>
+* { padding: 0; margin: 20; }
+		 canvas { background: #aaa; display: block; margin: 0 auto;}
+.monsterEen {
+position: absolute; top: 750px; left: 1750px;
+cursor: pointer;
+}
+.buttonEen {
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+    position: absolute; top:10px; left: 550px;
+}
+
+.buttonTwee {
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+    position: absolute; top:10px; left:750px;
+}
+
+.buttonDrie {
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+  position: absolute; top:10px; left: 950px;
+}
+
+.buttonVier {
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+  position: absolute; top:10px; left: 1150px;
+}
+
+}
+.monsterKnop{
+cursor: pointer;
+
+}
+.buttonEen:hover {background-color: #3e8e41}
+.buttonEen:active{
+background-color: #3e8e41;
+box-shadow: 0 5px #666;
+transform: translateY(4px);
+}
+.buttonTwee:hover {background-color: #3e8e41}
+.buttonTweeactive{
+background-color: #3e8e41;
+box-shadow: 0 5px #666;
+transform: translateY(4px);
+}
+.buttonDrie:hover {background-color: #3e8e41}
+.buttonDrie:active{
+background-color: #3e8e41;
+box-shadow: 0 5px #666;
+transform: translateY(4px);
+}
+.buttonVier:hover {background-color: #3e8e41}
+.buttonVier:active{
+background-color: #3e8e41;
+box-shadow: 0 5px #666; 
+transform: translateY(4px);
+}
+.dmgKost {
+position: absolute; top:50px; left: 615px;
+}
+.healthKost {
+position: absolute; top:50px; left: 800px;
+}
+.goldKost {
+position: absolute; top:50px; left: 1015px;
+}
+.levelKost {
+position: absolute; top:50px; left: 1215px;
+}
+.welklevel{
+position: absolute; top:75px; left: 1050px;
+}
+.level{
+position: absolute; top:75px;left:950px;
+}
+.maxXp{
+position: absolute; top:150px;left: 925px;
+}
+.currentXp{
+position: absolute; top:150px;left: 1000px;
+}
+.xpSlash{
+position: absolute; top:150px;left: 975px;
+}
+.realmonsterHp{
+position: absolute; top: 725px; left: 1820px;
+}
+.maxmonsterHp{
+position: absolute; top: 725px; left: 1750px;  
+}
+.slash{
+position: absolute; top: 725px; left: 1800px;  
+}
+.dmg{
+position: absolute; top: 50px; left: 50px;
+} 
+.dmgdmg{
+position: absolute; top: 50px; left 10px;
+}
+</style>
+</head>
+<body onload="init();">
+
+
+         <button class="buttonEen" onclick="dmgMultiplierFunction()">Damage</button>
+	     <button class="buttonTwee"onclick="healthMultiplierFunction()">Health</button>
+	     <button class= "buttonDrie" onclick="goldMultiplierFunction()">Gold-drop</button>
+		 <button class= "buttonVier"onclick="levelFunction()">Next stage</button>
+ 
+<!--Dit is de prijs van de upgrades -->
+<span class ="dmgKost" id="dmgKost">75</span>
+<span class ="healthKost" id="healthKost">75</span>
+<span class ="goldKost" id="goldKost">75</span>
+<span class ="levelKost" id="levelKost">500</span>
+<!--Dit is de hp van het monster -->
+<span class = "realmonsterHp" id="realMonsterHp">150</span>
+<span class = "maxmonsterHp" id="monsterMaxHp">150</span>
+<span class = "slash">/</span>
+<!--Dit gaat over de stats van dde speler-->
+<span class = "dmg" id="dmg">5</span>
+<span class = "dmgdmg">Dmg:</span>
+<h2>Player stats:</h2>
+<span>Health: </span><span id="maxHealth">150</span>/<span id="health">150</span>
+<h1 class ="welklevel" id="level">0</h1>
+<h1 class ="level" id="level">Level:</h1>
+<span class ="currentXp" id="currentXpHTML">0</span>
+<span class="maxXp" id="maxXpHTML">100</span>
+<span class="xpSlash">/</span>
+Geld: <span id="geld">0</span>
+<div class="monsterEen">
+
+</div>
+
+
+
+<canvas id="myCanvas" width="1900" height= "800"></canvas>
+</body>
+</html>
